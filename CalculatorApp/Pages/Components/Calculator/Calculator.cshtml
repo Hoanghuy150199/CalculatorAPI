@@ -1,0 +1,30 @@
+﻿@page
+@model CalculatorApp.Pages.CalculatorModel
+@{
+}
+
+<h2>Calculator</h2>
+Input currency: (USD)
+<input type="text" id="txtA" /> <br />
+Exchange rate: (USD->VND: 23740):
+<input type="text" id="txtB" /> <br />
+<input type="button" onclick="mul()" value="Mul" />
+
+<script type="text/javascript">
+    var apiUrl = 'https://localhost:7080/api/Calculator/mul/{1}/{2}';
+    function mul() {
+        var a = document.getElementById("txtA").value;
+        var b = document.getElementById("txtB").value;
+        apiUrl = apiUrl.replace("{1}", a).replace("{2}", b);
+        fetch(apiUrl).then(response => {
+            return response.json();
+        }).then(data => {
+            // Work with JSON data here
+            console.log(data);
+            alert(data);
+        }).catch(err => {
+            // Do something for an error here
+            alert(err);
+        });
+    }
+</script>
